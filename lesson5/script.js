@@ -2,45 +2,92 @@
 Доска должна быть верно разлинована на черные и белые ячейки. Строки должны нумероваться числами от 1 до 8, 
 столбцы — латинскими буквами A, B, C, D, E, F, G, H.*/
 
-function generateChessBoard () {
-
-    var $board = document.getElementById('board');
-    var $table = document.createElement('table');
-
-    for(var i = 0; i < 10; i++) {
-        var $row = document.createElement('tr'); 
-        for(var j = 0; j < 10; j++) {
-          var $cell = document.createElement('td');
-          $cell.className = 'chessBoard';
-
-          var num = '';
-          var str = 'ABCDEFGH';
-
-          if (i == 0 || i == 9) {
-              for (k=0; k < str.length; k++) {
-                str = str.charAt(j-1);
-              }
-              $cell.textContent = str;
-          } else if (j == 0 || j == 9) {
-              num = 9-i;
-              $cell.textContent = num;
-          } else if (i%2==0 && j%2!=0 || i%2!=0 && j%2==0) {
-              $cell.className = 'black';
-          } else {
-              $cell.className = 'white';
-          }
-
-
-          $row.appendChild($cell);
-        }
-
-        $table.appendChild($row);
+  var mapping = {
+    'H1': '♜',
+    'G1': '♞',
+    'F1': '♝',
+    'E1': '♛',
+    'D1': '♚',
+    'C1': '♝',
+    'B1': '♞',
+    'A1': '♜',
+    'H8': '♖',
+    'G8': '♘',
+    'F8': '♗',
+    'E8': '♔',
+    'D8': '♕',
+    'C8': '♗',
+    'B8': '♘',
+    'A8': '♖',
+    'A2': '♟',
+    'B2': '♟',
+    'C2': '♟',
+    'D2': '♟',
+    'E2': '♟',
+    'F2': '♟',
+    'G2': '♟',
+    'H2': '♟',
+    'A7': '♙',
+    'B7': '♙',
+    'C7': '♙',
+    'D7': '♙',
+    'E7': '♙',
+    'F7': '♙',
+    'G7': '♙',
+    'H7': '♙',
+  };
+  
+  var $wrap = document.getElementById('wrap');
+  $wrap.classList.add('wrap');
+  
+  var $chessBoard = document.createElement('div');
+  $chessBoard.id = 'chessBoard';
+  $chessBoard.classList.add('chess-wrap');
+  
+  var $digits = document.createElement('ul');
+  $digits.classList.add('vertical-right', 'border');
+  
+  var $letters = document.createElement('ul');
+  $letters.classList.add('horisontal-top', 'border')
+  
+  for(var i = 0; i < 8; i++) {
+    var $row = document.createElement('div');
+    $row.classList.add('row');
+  
+    var $liDigit = document.createElement('li');
+    $liDigit.textContent = i + 1;
+    $digits.appendChild($liDigit);
+  
+    var $liLetter = document.createElement('li');
+    $liLetter.textContent = String.fromCharCode(65 + i);
+    $letters.appendChild($liLetter);
+  
+    for(var j = 0; j < 8; j++) {
+      var $cell = document.createElement('div');
+      $cell.classList.add('box');
+      var coord = String.fromCharCode(65 + j) + (8 - i);
+  
+      $cell.textContent = mapping[coord];
+      
+      $row.appendChild($cell);
     }
-
-    $board.appendChild($table);
-}
-
-generateChessBoard ();
+  
+    $chessBoard.appendChild($row);
+  }
+  
+  var $digitsLeft = $digits.cloneNode(true);
+  $digitsLeft.classList.remove('vertical-right');
+  $digitsLeft.classList.add('vertical-left');
+  
+  var $lettersBottom = $letters.cloneNode(true);
+  $lettersBottom.classList.remove('horisontal-top');
+  $lettersBottom.classList.add('horisontal-bottom');
+  
+  $wrap.appendChild($digits);
+  $wrap.appendChild($digitsLeft);
+  $wrap.appendChild($letters);
+  $wrap.appendChild($lettersBottom);
+  $wrap.appendChild($chessBoard);
 
 
 /* Задание 2. Сделать генерацию корзины динамической: верстка корзины не должна находиться в HTML-структуре. 
@@ -118,7 +165,6 @@ function getTotal(cart) {
 }
 getTotal(cart);
 
-
 $cartConteiner.appendChild($cart); 
 
 /* Задание 3. Сделать так, чтобы товары в каталоге выводились при помощи JS:
@@ -126,72 +172,88 @@ $cartConteiner.appendChild($cart);
 При загрузке страницы на базе данного массива генерировать вывод из него. HTML-код должен содержать только div id=”catalog” 
 без вложенного кода. Весь вид каталога генерируется JS. */
 
-var catalogProducts = [
-    product = {
-        name: 'свитер',
-        model: '3256',
-        structure: 'хлопок',
-        color: 'белый',
-        size: 'XL',
-        price: 600,},
+var allProducts = [
+    {
+    name: 'свитер',
+    model: '3256',
+    structure: 'хлопок',
+    color: 'белый',
+    size: 'XL',
+    price: 600,},
     
-    product = {
-        name: 'блузка',
-        model: '1243',
-        structure: 'полиакрил',
-        color: 'голубой',
-        size: 'L',
-        price: 500,},
+    {
+    name: 'блузка',
+    model: '1243',
+    structure: 'полиакрил',
+    color: 'голубой',
+    size: 'L',
+    price: 500,},
 
-    product = {
-        name: 'брюки',
-        model: '8321',
-        structure: 'хлопок',
-        color: 'черный',
-        size: 'XL',
-        price: 1100,},
+    {
+    name: 'брюки',
+    model: '8321',
+    structure: 'хлопок',
+    color: 'черный',
+    size: 'XL',
+    price: 1100,},
 
-    product = {
-        name: 'топ',
-        model: '7652',
-        structure: 'акрил',
-        color: 'синий',
-        size: 'XS',
-        price: 200,},
+    {
+    name: 'топ',
+    model: '7652',
+    structure: 'акрил',
+    color: 'синий',
+    size: 'XS',
+    price: 200,},
 
-    product = {
-        name: 'юбка',
-        model: '8142',
-        structure: 'хлопок',
-        color: 'красный',
-        size: 'S',
-        price: 800,},
+    {
+    name: 'юбка',
+    model: '8142',
+    structure: 'хлопок',
+    color: 'красный',
+    size: 'S',
+    price: 800,},
     
-    product = {
-        name: 'шорты',
-        model: '9325',
-        structure: 'хлопок',
-        color: 'оранжевый',
-        size: 'L',
-        price: 400,},
+    {
+    name: 'шорты',
+    model: '9325',
+    structure: 'хлопок',
+    color: 'оранжевый',
+    size: 'L',
+    price: 400,},
 ];
+var $catalogWrap = document.getElementById('catalogWrap');
+var $catalogConteiner = document.createElement('div');
+$catalogConteiner.id = 'catalogConteiner';
+var $liCatalog = document.createElement('li');
+var $divCatalog = document.createElement('div');
+var $spanName = document.createElement('span');
+$spanName.classList.add('name');
+var $spanColor = document.createElement('span');
+$spanColor.classList.add('color');
+var $spanPrice = document.createElement('span');
+$spanPrice.classList.add('price');
 
-var $catalogConteiner = document.getElementById('catalogConteiner');
-var $catalog = document.createElement('table');
 
-function getCatalog () {
-    for (var i = 0; i < catalogProducts.length; i++) {
-        var $row = document.createElement('tr');
-        for(var j = 0; j < catalogProducts.length; j++) {
-            var $cell = document.createElement('td');
-            $cell.className = 'productInCatalog';
-            for (var k in product) {
-            $cell.textContent = k + ': ' + product[k];
-            }
-            $row.appendChild($cell);
-        }
-        $catalog.appendChild($row);
+var $catalog = document.createElement('ul');
+$catalog.id = 'catalog';
+
+function buildCatalog(allProducts) {
+    for(var i = 0; i < allProducts.length; i++) {
+        var $item = $catalogConteiner.children[0].cloneNode(true);
+        $item.querySelector('.name').textContent = allProducts[i].name; 
+        $item.querySelector('.color').textContent = ' -- цвет: ' + allProducts[i].color + ',';
+        $item.querySelector('.price').textContent = ' цена: ' + allProducts[i].price + ' рублей';
+
+        $catalog.appendChild($item);
     }
-$catalogConteiner.appendChild($catalog);
+    
 }
-getCatalog();
+$divCatalog.appendChild($spanName);
+$divCatalog.appendChild($spanColor);
+$divCatalog.appendChild($spanPrice);
+$liCatalog.appendChild($divCatalog);
+$catalogConteiner.appendChild($liCatalog);
+$catalogWrap.appendChild($catalogConteiner);
+$catalogWrap.appendChild($catalog);
+
+buildCatalog(allProducts);
