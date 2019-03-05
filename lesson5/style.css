@@ -1,0 +1,130 @@
+body {
+    width: 1140px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 14px;
+}
+
+.wrap {
+    width: 544px;
+    margin: 10px auto 100px;
+    padding-top: 10px;
+    position: relative;
+}
+  
+#chessBoard {
+    width: 496px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10% auto 0;
+}
+  
+#chessBoard .row {
+    line-height: 1px;
+    display: flex;
+}
+  
+.box {
+    display: flex;
+    width: 62px;
+    height: 62px;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.border {
+    display: flex;
+    background-color: rgb(146, 75, 24);
+    list-style: none;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    position: absolute;
+    color: #d4d4d4;
+}
+
+.horisontal-top {
+    height: 40px;
+    width: 496px;
+    flex-direction: row;
+    left: 24px;
+    top: 7px;
+    border-bottom: 2px solid #3f1919;
+}
+
+.vertical-left {
+    flex-direction: column-reverse;
+    left: -16px;
+    width: 40px;
+    height: 579px;
+    box-sizing: border-box;
+    top: 7px;
+    border-right: 2px solid #3f1919;
+    padding: 36px 0;
+}
+
+.vertical-right {
+    bottom: -58px;
+    flex-direction: column-reverse;
+    right: -16px;
+    width: 40px;
+    height: 579px;
+    border-left: 2px solid #3f1919;
+    padding: 36px 0;
+    box-sizing: border-box;
+}
+
+.horisontal-bottom {
+    bottom: -58px;
+    height: 40px;
+    width: 496px;
+    flex-direction: row;
+    right: 24px;
+    border-top: 2px solid #3f1919;
+}
+
+#chessBoard .row:nth-child(odd) .box:nth-child(even),
+#chessBoard .row:nth-child(even) .box:nth-child(odd) {
+    background-color: rgb(146, 75, 24);
+}
+
+#chessBoard .row:nth-child(even) .box:nth-child(even),
+#chessBoard .row:nth-child(odd) .box:nth-child(odd) {
+    background-color: #faf5f5;
+}
+
+#cartConteiner > div {
+    margin: 30px;
+    font-size: 20px;
+    /* font-weight: 600; */
+    font-style: italic;
+    text-align: center;
+}
+
+#catalogWrap {
+    margin: 0 auto;
+}
+
+#catalogConteiner {
+    display: none;
+    list-style-type: none;
+}
+
+#catalog li {
+    list-style-type: none;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.name {
+    font-weight: 700;
+    color: rgb(88, 88, 218);
+}
+
+.price {
+    color: rgb(125, 170, 56);
+}
