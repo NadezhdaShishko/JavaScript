@@ -59,7 +59,7 @@ button {
 
 button:hover {
   color: rgb(223, 68, 11);
-  box-shadow:0 0 0 2px rgb(223, 68, 11) inset, 0 0 0 4px white inset;
+  box-shadow: 0 0 0 2px rgb(223, 68, 11) inset, 0 0 0 4px white inset;
 }
 
 button:focus {
