@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+          crossorigin="anonymous">
+
+    <title>Lesson7</title>
+</head>
+<body>
+    <h2>Задание 1. Реализовать страницу корзины:
+        a. Добавить возможность не только смотреть состав корзины, но и редактировать его, обновляя общую стоимость 
+        или выводя сообщение «Корзина пуста».</h2>
+
+    <div id = "catalogWrap">
+        <div id = "catalogConteiner">
+            <li>
+                <div>
+                    <div>
+                        <span class="img"></span>
+                    </div>
+                    <div>
+                        <span class="name"></span>
+                    </div>
+                    <div>
+                        Состав: <span class="structure"></span>
+                    </div>
+                    <div>
+                        Цвет: <span class="color"></span>
+                    </div>
+                    <div>
+                        Размер: <span class="size"></span>
+                    </div>
+                    <div class="divPrice">
+                        Цена: <span class="price"></span> рублей
+                    </div>
+                    <button>Купить</button>
+                </div>
+            </li>
+        </div>
+        <ul id="catalog"></ul>
+    </div>
+    <div id="cartConteiner">
+        <div id="divCart"></div>
+        <button id="btnClear" class="btnClear"> Очистить корзину </button>
+    </div>
+    <div id="cartWrap" class="cartWrap">
+        <details open>
+            <summary>
+                <span>СОСТАВ КОРЗИНЫ</span>
+            </summary>
+            <div id="goodsContainer">
+                <div id="goodsHeader">
+                    <div class="headerName">Описание товара</div>
+                    <div>Цена</div>
+                    <div>Кол-во</div>
+                    <div>Сумма</div>
+                    <div>Удалить</div>
+                </div>
+                <div id="goodsBlock">
+                    <li>
+                        <div>
+                            <span class="img"></span>
+                        </div>
+                        <div class="details">
+                            <span class="name"></span>
+                            Цвет: <span class="color"></span> <br>
+                            Размер: <span class="size"></span>
+                        </div>
+                        <div>
+                            <span class="price"></span>  
+                        </div>
+                        <div>
+                            <span class="quantity"></span>
+                        </div>
+                        <div>
+                            <span class="subtotal"></span>
+                        </div>
+                        <button class="action"><i class="fas fa-times-circle"></i></button>
+                    </li>
+                </div>
+                <ul id="goods"></ul>
+            </div>
+            <button>Далее</button>
+        </details>
+        <details>
+            <summary>
+                <span>АДРЕС ДОСТАВКИ</span>
+            </summary>
+            <div>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus maiores nisi ad neque asperiores consectetur in pariatur ipsum accusamus dignissimos. Voluptas debitis ad culpa quasi corrupti quidem maiores, veritatis ipsum?
+            </div>
+            <button>Далее</button>
+        </details>
+        <details>
+            <summary>
+                <span>КОММЕНТАРИЙ</span>
+            </summary>
+            <div>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus maiores nisi ad neque asperiores consectetur in pariatur ipsum accusamus dignissimos. Voluptas debitis ad culpa quasi corrupti quidem maiores, veritatis ipsum?
+            </div>
+            <button>Далее</button>
+        </details>
+    </div>
+
+    <h2>Задание 2. На странице корзины:
+        a. Сделать отдельные блоки «Состав корзины», «Адрес доставки», «Комментарий»;
+        b. Сделать эти поля сворачиваемыми;
+        c. Заполнять поля по очереди, то есть давать посмотреть состав корзины, внизу которого есть кнопка «Далее». 
+        Если нажать ее, сворачивается «Состав корзины» и открывается «Адрес доставки» и так далее.</h2>
+            
+    <h2>Продолжаем реализовывать модуль корзины:
+        a. Добавлять в объект корзины выбранные товары по клику на кнопке «Купить» без перезагрузки страницы;
+        b. Привязать к событию покупки товара пересчет корзины и обновление ее внешнего вида.        
+    </h2>  
+
+    <script src="script.js"></script>
+</body>
+</html>
