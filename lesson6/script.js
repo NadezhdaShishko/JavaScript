@@ -72,7 +72,6 @@ $divSize.classList.add('size');
 var $divPrice = document.createElement('div');
 $divPrice.classList.add('price');
 var $catalogButton = document.createElement('button');
-// $catalogButton.id = 'btnCatalog';
 $catalogButton.classList.add('btnCatalog');
 $catalogButton.textContent = 'Купить';
 
@@ -87,8 +86,8 @@ function buildCatalog(allProducts) {
         $item.querySelector('.structure').textContent = 'Состав: ' + allProducts[i].structure; 
         $item.querySelector('.color').textContent = 'Цвет: ' + allProducts[i].color;
         $item.querySelector('.size').textContent = 'Размер: ' + allProducts[i].size; 
-        $item.querySelector('.price').textContent = 'Цена: ' + allProducts[i].price + ' рублей';
-        // $item.querySelector('.btnCatalog').id = 'btnCatalog' + i;
+        $item.querySelector('.price').textContent = allProducts[i].price;
+    
         $catalog.appendChild($item);
         
     }  
@@ -109,45 +108,66 @@ $catalogWrap.appendChild($catalog);
 
 buildCatalog(allProducts);
 
-var cart = [];
-var cart = [
-    { name: 'свитер', price: 600, count: 1, },
-    { name: 'блузка', price: 500, count: 1, },
-    { name: 'брюки', price: 1100, count: 2, },
-];
+var $catalog = document.getElementById('catalog');
+$catalog.addEventListener('click', handleCatalogButtonClick);
 
-function addInCart() {
-    var $catalog = document.getElementById('catalog');
-    $catalog.addEventListener('click', handleCatalogButtonClick);
+function getIndex(name) {
+    var idx = -1;
+    for (var i = 0; i < cart.length; i++) {
+        if (cart[i].name === name) {
+            idx = i;
+        }
+    }
+    return idx;
 }
 
 function handleCatalogButtonClick(event) {
     if (event.target.tagName === 'BUTTON') {
-        event.preventDefault();
-        cart.push();
+        var $product = event.target.parentElement;
         
-        alert('Clicked');
+        var name = $product.querySelector('.name').textContent;
+        var price = +$product.querySelector('.price').textContent;
+
+
+        var index = getIndex(name);
+        if (index === -1) {
+            cart.push({name: name, price: price, quantity: 1});
+        } else {
+            cart[index].quantity++;
+        }
+        buildTotal(cart);
     }
 }
+
+var cart = [];
 
 var $cartConteiner = document.getElementById('cartConteiner');
-var $cart = document.createElement('div');
-$cart.classList.add('cart');
+var $divCart = document.createElement('div');
+$divCart.id = 'divCart';
+$divCart.classList.add('divCart');
 
-function getTotal(cart) {
-    if (cart.length == 0) {
-        $cart.textContent = "Корзина пуста";
-    } else {
-        var total = 0;
-        for (var i = 0; i < cart.length; i++) {
-        total = total + cart[i].price * cart[i].count;;
-        }
-    $cart.textContent = "В корзине: " + cart.length + " товаров на сумму " + total + " рублей.";
+function buildTotal(cart) {
+    var total = 0;
+    var count = 0;
+    for (var i = 0; i < cart.length; i++) {
+        total = total + cart[i].price * cart[i].quantity;
+        count = count + cart[i].quantity;
     }
-}
-getTotal(cart);
+    $divCart.innerHTML = '';
 
-$cartConteiner.appendChild($cart);
+    var $cart = document.createElement('div');
+    $cart.classList.add('cart');
+
+    if (cart.length == 0) {
+        $cart.textContent = 'Корзина пуста';
+    } else {
+        $cart.textContent = 'В корзине: ' + count + ' товаров на сумму ' + total + ' рублей.';
+    }
+    $divCart.appendChild($cart);
+}
+buildTotal(cart);
+
+$cartConteiner.appendChild($divCart);
 
 // очистить корзину
 var $clearButton = document.createElement('button');
@@ -162,10 +182,11 @@ function clearCart(cart) {
     $clearButton.addEventListener('click', handleClearButtonClick);
 }
 
-function handleClearButtonClick(cart) {
-    cart.length = 0;
-    $cart.textContent = "Корзина пуста";
+function handleClearButtonClick(event) {
+
+    cart = [];
+    buildTotal(cart);
+    console.log('проверка');
 }
 
-window.addEventListener('load', addInCart);
 window.addEventListener('load', clearCart);
