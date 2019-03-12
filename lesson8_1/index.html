@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson8_1</title>
+</head>
+<body>
+    <script>
+        // a. 
+        if (!("a" in window)) {
+            var a = 1;
+        }
+        alert(a);
+        // alert выведет undefined, т.к. a задается только после if, то сначала в window её нет, т.е. она не определяется.
+
+        // b.
+        var b = function a(x) {
+            x && a(--x);
+        };
+        alert(a);
+        // объявляем функцию под двумя разными миенами a и b, поэтому выдаст ошибку.
+
+        // c.
+        function a(x) {
+            return x * 2;
+        }
+        var a;
+        alert(a);
+        // переменная a  и есть сама функция, поэтому alert выведет function a(x) {return x * 2;}
+
+        // d.
+        function b(x, y, a) {
+            arguments[2] = 10;
+            alert(a);
+        }
+        b(1, 2, 3);
+        // изначально a=3, затем, т.к. функция является объектом, то строка arguments[2] = 10 задает новое значение a=10, значит alert выведет 10.
+
+        // e.
+        function a() {
+            alert(this);
+        }
+        a.call(null);
+        // Здесь мы диктуем: «Вызови (call) функцию a с переменной null как this», т.е. в этом случае функция вызывается без переменных, т.е call(). А т.к. this в глобальной области указывает на window, то получаем функцию как объект window. Alert выводит [object Window]
+
+    </script>
+</body>
+</html>
